@@ -1,0 +1,51 @@
+.Log-Reg-Container{
+    background: none;
+    overflow: hidden;
+
+}
+.Log-Reg-Header{
+    background-color: #111111;
+    height: 15%;
+}
+.header-container{
+}
+.logo{
+    height: 80%;
+    width: 100px;
+}
+.App-name{
+    font-weight: 700;
+}
+
+.p-inputtext {
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 23vw;
+    padding: 2%;
+    margin-bottom: 5%;
+  }
+  .input{
+    margin-bottom:10px;
+  }
+.p-button{
+    width: 100%;
+    border-radius: 50px;
+}
+.sign-up{
+
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+  }
+  .sign-up:hover{
+    color: rgb(39, 122, 201);
+  }
+  .acc{
+    margin-top: 20%;
+  }
+  .p-password-show-icon{
+  }
