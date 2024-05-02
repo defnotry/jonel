@@ -13,9 +13,6 @@ function UserLayout() {
     });
   }, [setUser]);
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
 
   const onLogout = (ev) => {
     ev.preventDefault();
