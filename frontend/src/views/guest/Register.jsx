@@ -1,8 +1,16 @@
 import React from 'react'
+import { Container, Row } from 'react-bootstrap'
 
 function Register() {
   return (
-    <div>Register</div>
+    <Container fluid>
+      <Row>
+        header
+      </Row>
+      <Row>
+        
+      </Row>
+    </Container>
   )
 }
 
