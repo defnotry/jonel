@@ -21,7 +21,7 @@ class UserController extends Controller
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
 
-        return response(new UserResource($user) , 201);
+        return response(new UserResource($user), 201);
     }
 
     public function show(User $user)
@@ -38,5 +38,12 @@ class UserController extends Controller
         $user->update($data);
 
         return new UserResource($user);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return response("", 204);
     }
 }

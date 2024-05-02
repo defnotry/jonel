@@ -7,17 +7,35 @@ import { useState } from "react";
 
 import "../../assets/styles/log-reg.css";
 import logo from "../../images/logonimo.png";
+import { Link } from "react-router-dom";
+
+import axios_client from "../../configs/axios-client";
+import { useStateContext } from "../../context/ContextProvider";
+
 function Login() {
+  const { setUser, setToken } = useStateContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null); //ig toaster ine
 
   const handleLogin = () => {
-    const userData = {
+    const payload = {
       email,
       password,
     };
 
-    //handle query
+    axios_client
+      .post("/login", payload)
+      .then(({ data }) => {
+        setUser(data.user);
+        setToken(data.token);
+      })
+      .catch((error) => {
+        const response = error.response;
+        if (response && response.status === 422) {
+          setMessage(response.data.message);
+        }
+      });
   };
 
   return (
@@ -35,7 +53,9 @@ function Login() {
       <Row className=" d-flex flex-column h-100 align-items-center">
         <Card className="w-25 h-75 d-flex justify-content-center flex-row">
           <div className="w-100 d-flex justify-content-center align mb-4">
-            <h1 style={{ fontSize: "50px", fontWeight: "600" }}>Sign <span style={{ color: "rgb(39, 122, 201)" }}>in</span></h1>
+            <h1 style={{ fontSize: "50px", fontWeight: "600" }}>
+              Sign <span style={{ color: "rgb(39, 122, 201)" }}>in</span>
+            </h1>
           </div>
           <Container fluid>
             <div className="field d-flex flex-column">
@@ -61,10 +81,12 @@ function Login() {
           </Container>
           <Button label="Login" onClick={handleLogin} />
           <div className="acc w-100 d-flex justify-content-center">
-          <label>
-            Don't have an account?{" "}
-            <span className="sign-up"><a onClick={() => navigate("/register")}>Sign up</a></span>
-          </label>
+            <p>
+              Dont have an account?{" "}
+              <span className="sign-up">
+                <Link to="/register">Register</Link>
+              </span>
+            </p>
           </div>
         </Card>
       </Row>
