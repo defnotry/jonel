@@ -7,8 +7,6 @@
     background-color: #111111;
     height: 15%;
 }
-.header-container{
-}
 .logo{
     height: 80%;
     width: 100px;
@@ -47,5 +45,12 @@
   .acc{
     margin-top: 20%;
   }
-  .p-password-show-icon{
+  .acc1{
+    margin-top: 10%;
+  }
+  .card{
+    background: none;
+  }
+  .nameInput-container{
+    justify-content: space-between;
   }

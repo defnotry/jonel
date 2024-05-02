@@ -7,30 +7,32 @@ import { classNames } from "primereact/utils";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { Checkbox } from "primereact/checkbox";
-import { Link } from "react-router-dom";
+import "../../assets/styles/log-reg.css";
+import logo from "../../images/logonimo.png";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({});
-
+  const navigate = useNavigate();
   const validate = (data) => {
     let errors = {};
 
     if (!data.last_name) {
-      errors.last_name = "Surname is required.";
+      errors.last_name = "Required Field";
     }
 
     if (!data.first_name) {
-      errors.first_name = "First name is required.";
+      errors.first_name = "Required Field";
     }
 
     if (!data.email) {
-      errors.email = "Email is required.";
+      errors.email = "Required Field";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-      errors.email = "Invalid email address. E.g. example@email.com";
+      errors.email = "Invalid email address.";
     }
 
     if (!data.password) {
-      errors.password = "Password is required.";
+      errors.password = "Required Field";
     }
 
     if (!data.accept) {
@@ -52,7 +54,7 @@ function Register() {
     <React.Fragment>
       <Divider />
       <p className="mt-2">Suggestions</p>
-      <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: "1.5" }}>
+      <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: "1.5  " }}>
         <li>At least one lowercase</li>
         <li>At least one uppercase</li>
         <li>At least one numeric</li>
@@ -70,11 +72,20 @@ function Register() {
 
   return (
     <Container fluid>
-      <Row>header</Row>
+    <Row className="Log-Reg-Header p-2">
+    <div className="d-flex align-items-center">
+      <div className="header-container ">
+        <img src={logo} className="logo"></img>
+      </div>
+      <div className="mx-3">
+        <h3 className="App-name" style={{cursor:'default'}}> Cloud Cache</h3>
+      </div>
+    </div>
+  </Row>
       <Row>
         <div className="d-flex justify-content-center">
-          <div className="card p-4">
-            <h5 className="text-center">Register</h5>
+          <div className="card p-1">
+            <h1 className="text-center" style={{color:'white', fontWeight: '600', marginBottom:'10%',cursor:'default'}}>Sign <span style={{color:'rgb(39, 122, 201)'}}>up</span></h1>
             <Form
               onSubmit={onRegister}
               initialValues={{
@@ -87,40 +98,18 @@ function Register() {
               validate={validate}
               render={({ handleSubmit }) => (
                 <form onSubmit={handleSubmit} className="p-fluid">
-                  <Field
-                    name="last_name"
-                    render={({ input, meta }) => (
-                      <div className="field">
-                        <label
-                          htmlFor="last_name"
-                          className={classNames({
-                            "p-error": isFormFieldValid(meta),
-                          })}
-                        >
-                          Last Name*
-                        </label>
-                        <InputText
-                          id="last_name"
-                          {...input}
-                          className={classNames({
-                            "p-invalid": isFormFieldValid(meta),
-                          })}
-                        />
-                        {getFormErrorMessage(meta)}
-                      </div>
-                    )}
-                  />
-                  <Field
+                <div className="d-flex  nameInput-container">
+                <Field
                     name="first_name"
                     render={({ input, meta }) => (
-                      <div className="field">
+                      <div className="field d-flex flex-column">
                         <label
                           htmlFor="first_name"
                           className={classNames({
                             "p-error": isFormFieldValid(meta),
                           })}
                         >
-                          First Name*
+                          First Name
                         </label>
                         <InputText
                           id="first_name"
@@ -128,22 +117,48 @@ function Register() {
                           className={classNames({
                             "p-invalid": isFormFieldValid(meta),
                           })}
+                          style={{width: '23vh'}}
+                        />
+                        {getFormErrorMessage(meta)}
+                      </div>
+                    )}
+                  />  
+                <Field
+                    name="last_name"
+                    render={({ input, meta }) => (
+                      <div className="field d-flex flex-column">
+                        <label
+                          htmlFor="last_name"
+                          className={classNames({
+                            "p-error": isFormFieldValid(meta),
+                          })}
+                        >
+                          Last Name
+                        </label>
+                        <InputText
+                          id="last_name"
+                          {...input}
+                          className={classNames({
+                            "p-invalid": isFormFieldValid(meta),
+                          })}
+                          style={{width: '23vh'}}
                         />
                         {getFormErrorMessage(meta)}
                       </div>
                     )}
                   />
+                  </div>
                   <Field
                     name="email"
                     render={({ input, meta }) => (
-                      <div className="field">
+                      <div className="field d-flex flex-column">
                         <label
                           htmlFor="email"
                           className={classNames({
                             "p-error": isFormFieldValid(meta),
                           })}
                         >
-                          Email Address*
+                          Email Address
                         </label>
                         <InputText
                           id="email"
@@ -159,14 +174,14 @@ function Register() {
                   <Field
                     name="password"
                     render={({ input, meta }) => (
-                      <div className="field">
+                      <div className="field d-flex flex-column">
                         <label
                           htmlFor="password"
                           className={classNames({
                             "p-error": isFormFieldValid(meta),
                           })}
                         >
-                          Password*
+                          Password
                         </label>
                         <Password
                           id="password"
@@ -199,6 +214,7 @@ function Register() {
                           className={classNames({
                             "p-error": isFormFieldValid(meta),
                           })}
+                          style={{fontSize:'10px', marginLeft: '5px'}}
                         >
                           I agree to the terms and conditions*
                         </label>
@@ -209,7 +225,12 @@ function Register() {
                 </form>
               )}
             />
-            <p>Already have an account?<span><Link to='/login'>Login</Link></span></p>
+            <div className="acc1 w-100 d-flex justify-content-center">
+          <label>
+            Don't have an account?{" "}
+            <span className="sign-up"><a onClick={() => navigate("/login")}>Sign in</a></span>
+          </label>
+          </div>
           </div>
         </div>
       </Row>
