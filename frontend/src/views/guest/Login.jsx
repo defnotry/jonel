@@ -4,13 +4,13 @@ import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import "../../assets/styles/log-reg.css";
 import logo from "../../images/logonimo.png";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = () => {
     const userData = {
       email,
@@ -21,21 +21,21 @@ function Login() {
   };
 
   return (
-    <Container fluid className="Log-Reg-Container vh-100">
-      <Row className="Log-Reg-Header">
+    <Container fluid className="Log-Reg-Container ">
+      <Row className="Log-Reg-Header p-2">
         <div className="d-flex align-items-center">
           <div className="header-container ">
             <img src={logo} className="logo"></img>
           </div>
           <div className="mx-3">
-            <h3 className="App-name"> Cloud Cache</h3>
+            <h3 className="App-name" style={{cursor:'default'}}> Cloud Cache</h3>
           </div>
         </div>
       </Row>
       <Row className=" d-flex flex-column h-100 align-items-center">
         <Card className="w-25 h-75 d-flex justify-content-center flex-row">
           <div className="w-100 d-flex justify-content-center align mb-4">
-            <h1 style={{ fontSize: "50px", fontWeight: "600" }}>Sign <span style={{ color: "rgb(39, 122, 201)" }}>in</span></h1>
+            <h1 style={{ fontSize: "50px", fontWeight: "600", cursor:'default' }}>Sign <span style={{ color: "rgb(39, 122, 201)" }}>in</span></h1>
           </div>
           <Container fluid>
             <div className="field d-flex flex-column">
@@ -46,6 +46,7 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+            
             <div className="field d-flex flex-column">
               <label htmlFor="password">Password</label>
               <Password
