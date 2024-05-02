@@ -100,6 +100,21 @@ services:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '8080:80' # Change port 8080 to your desired port if needed
+        environment:
+            PMA_HOST: mysql # Name of your MySQL service defined in the same docker-compose file
+            PMA_USER: ${DB_USERNAME}
+            PMA_PASSWORD: ${DB_PASSWORD}
+            PMA_ARBITRARY: 1
+        depends_on:
+            - mysql # Ensure phpMyAdmin starts after MySQL
+        networks:
+            - sail
+            
 networks:
     sail:
         driver: bridge
