@@ -10,9 +10,16 @@ import { Checkbox } from "primereact/checkbox";
 import "../../assets/styles/log-reg.css";
 import logo from "../../images/logonimo.png";
 import { useNavigate } from "react-router-dom";
+import axios_client from "../../configs/axios-client";
+import { useStateContext } from "../../context/ContextProvider";
 
 function Register() {
+  
+  const {setUser, setToken} = useStateContext()
   const [formData, setFormData] = useState({});
+  
+  const [errors, setErrors] = useState(null) //toaster
+  
   const navigate = useNavigate();
   const validate = (data) => {
     let errors = {};
@@ -64,10 +71,26 @@ function Register() {
   );
 
   const onRegister = (data) => {
-    setFormData(data);
+    const payload = {
+      last_name: data.last_name,
+      first_name: data.first_name,
+      email: data.email,
+      password: data.password,
+    }
 
     //request here
-    console.log(formData);
+    axios_client.post('/register', payload)
+      .then(({data}) => { 
+        setUser(data.user)
+        setToken(data.token);
+      })
+      .catch(err => {
+        const response = err.response;
+        console.log(response)
+        if (response && response.status === 422) {
+          setErrors(response.data.errors)
+        }
+      })
   };
 
   return (
@@ -227,7 +250,7 @@ function Register() {
             />
             <div className="acc1 w-100 d-flex justify-content-center">
           <label>
-            Don't have an account?{" "}
+            Dont have an account?{" "}
             <span className="sign-up"><a onClick={() => navigate("/login")}>Sign in</a></span>
           </label>
           </div>
